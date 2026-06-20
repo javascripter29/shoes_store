@@ -1,4 +1,5 @@
 import { ChevronDown, ShoppingBag, ShoppingCart } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { currencies } from "../data/currencies";
 import { categories } from "../data/products";
@@ -17,6 +18,40 @@ export function Header({
   setCurrency: (currency: Currency) => void;
   totalItems: number;
 }) {
+  const [isCatalogOpen, setIsCatalogOpen] = useState(false);
+  const catalogMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!isCatalogOpen) {
+      return;
+    }
+
+    const handlePointerDown = (event: PointerEvent) => {
+      if (!catalogMenuRef.current?.contains(event.target as Node)) {
+        setIsCatalogOpen(false);
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setIsCatalogOpen(false);
+      }
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isCatalogOpen]);
+
+  const handleChooseCategory = (category: Category | "Все") => {
+    chooseCategory(category);
+    setIsCatalogOpen(false);
+  };
+
   return (
     <header className="relative z-50 flex flex-wrap items-center justify-between gap-4 rounded-lg border border-zinc-800 bg-zinc-900/80 px-4 py-3 backdrop-blur">
       <Link className="flex items-center gap-3" to="/">
@@ -30,42 +65,52 @@ export function Header({
       </Link>
 
       <nav className="order-3 flex w-full items-center gap-2 sm:order-none sm:w-auto">
-        <div className="group relative">
+        <div className="relative" ref={catalogMenuRef}>
           <button
+            aria-expanded={isCatalogOpen}
+            aria-haspopup="menu"
             className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-bold text-zinc-200 transition hover:bg-zinc-800 hover:text-emerald-300"
+            onClick={() => setIsCatalogOpen((current) => !current)}
             type="button"
           >
             Каталог
             <ChevronDown
-              className="transition group-hover:rotate-180"
+              className={`transition ${isCatalogOpen ? "rotate-180" : ""}`}
               size={16}
             />
           </button>
-          <div className="invisible absolute left-0 top-full z-[100] mt-2 w-56 rounded-lg border border-zinc-800 bg-zinc-950 p-2 opacity-0 shadow-2xl shadow-black/40 transition group-hover:visible group-hover:opacity-100">
-            <button
-              className={`w-full rounded-md px-3 py-2 text-left text-sm transition hover:bg-emerald-400 hover:text-zinc-950 ${
-                activeCategory === "Все" ? "text-emerald-300" : "text-zinc-300"
-              }`}
-              onClick={() => chooseCategory("Все")}
-              type="button"
+          {isCatalogOpen ? (
+            <div
+              className="absolute left-0 top-full z-[100] mt-2 w-56 max-w-[calc(100vw-2rem)] rounded-lg border border-zinc-800 bg-zinc-950 p-2 shadow-2xl shadow-black/40"
+              role="menu"
             >
-              Все кроссовки
-            </button>
-            {categories.map((category) => (
               <button
                 className={`w-full rounded-md px-3 py-2 text-left text-sm transition hover:bg-emerald-400 hover:text-zinc-950 ${
-                  activeCategory === category
-                    ? "text-emerald-300"
-                    : "text-zinc-300"
+                  activeCategory === "Все" ? "text-emerald-300" : "text-zinc-300"
                 }`}
-                key={category}
-                onClick={() => chooseCategory(category)}
+                onClick={() => handleChooseCategory("Все")}
+                role="menuitem"
                 type="button"
               >
-                {category}
+                Все кроссовки
               </button>
-            ))}
-          </div>
+              {categories.map((category) => (
+                <button
+                  className={`w-full rounded-md px-3 py-2 text-left text-sm transition hover:bg-emerald-400 hover:text-zinc-950 ${
+                    activeCategory === category
+                      ? "text-emerald-300"
+                      : "text-zinc-300"
+                  }`}
+                  key={category}
+                  onClick={() => handleChooseCategory(category)}
+                  role="menuitem"
+                  type="button"
+                >
+                  {category}
+                </button>
+              ))}
+            </div>
+          ) : null}
         </div>
         <Link
           className="rounded-md px-3 py-2 text-sm font-bold text-zinc-300 transition hover:bg-zinc-800 hover:text-emerald-300"

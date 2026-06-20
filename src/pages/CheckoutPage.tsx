@@ -1,7 +1,8 @@
 ﻿import { CheckCircle, CreditCard, MapPin, Truck, User } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { formatPrice } from "../logic/formatPrice";
+import { scrollToPageTop } from "../logic/scrollToPageTop";
 import type { CartItem, Currency } from "../types/shop";
 
 export function CheckoutPage({
@@ -14,6 +15,21 @@ export function CheckoutPage({
   total: number;
 }) {
   const [orderSuccess, setOrderSuccess] = useState(false);
+  const [delivery, setDelivery] = useState<"courier" | "pickup">("courier");
+
+  useEffect(() => {
+    scrollToPageTop();
+
+    const timers = [100, 300, 600].map((delay) =>
+      window.setTimeout(() => {
+        scrollToPageTop();
+      }, delay),
+    );
+
+    return () => {
+      timers.forEach((timer) => window.clearTimeout(timer));
+    };
+  }, []);
 
   if (orderSuccess) {
     return (
@@ -91,28 +107,71 @@ export function CheckoutPage({
           </label>
 
           <div className="grid gap-4 sm:grid-cols-2">
-            <label className="rounded-lg border border-emerald-400/60 bg-zinc-950 p-4">
-              <span className="flex items-center gap-2 font-bold text-zinc-100">
-                <Truck size={18} className="text-emerald-300" />
-                Курьер
+            <label
+              className={`flex cursor-pointer items-center justify-between gap-4 rounded-lg border bg-zinc-950 p-4 transition hover:border-emerald-400/60 ${
+                delivery === "courier"
+                  ? "border-emerald-400/60"
+                  : "border-zinc-800"
+              }`}
+            >
+              <span className="flex min-w-0 items-center gap-2 font-bold text-zinc-100">
+                <Truck className="shrink-0 text-emerald-300" size={18} />
+                <span>Курьер</span>
               </span>
               <input
-                className="mt-4 accent-emerald-400"
-                defaultChecked
+                checked={delivery === "courier"}
+                className="sr-only"
                 name="delivery"
+                onChange={() => setDelivery("courier")}
                 type="radio"
               />
+              <span
+                aria-hidden="true"
+                className={`grid size-5 shrink-0 place-items-center rounded-full border ${
+                  delivery === "courier"
+                    ? "border-emerald-300"
+                    : "border-zinc-600"
+                }`}
+              >
+                <span
+                  className={`size-2.5 rounded-full bg-emerald-300 ${
+                    delivery === "courier" ? "block" : "hidden"
+                  }`}
+                />
+              </span>
             </label>
-            <label className="rounded-lg border border-zinc-800 bg-zinc-950 p-4">
-              <span className="flex items-center gap-2 font-bold text-zinc-100">
-                <MapPin size={18} className="text-emerald-300" />
-                Самовывоз
+            <label
+              className={`flex cursor-pointer items-center justify-between gap-4 rounded-lg border bg-zinc-950 p-4 transition hover:border-emerald-400/60 ${
+                delivery === "pickup"
+                  ? "border-emerald-400/60"
+                  : "border-zinc-800"
+              }`}
+            >
+              <span className="flex min-w-0 items-center gap-2 font-bold text-zinc-100">
+                <MapPin className="shrink-0 text-emerald-300" size={18} />
+                <span>Самовывоз</span>
               </span>
               <input
-                className="mt-4 accent-emerald-400"
+                checked={delivery === "pickup"}
+                className="sr-only"
                 name="delivery"
+                onChange={() => setDelivery("pickup")}
                 type="radio"
               />
+              <span
+                aria-hidden="true"
+                className={`grid size-5 shrink-0 place-items-center rounded-full border ${
+                  delivery === "pickup"
+                    ? "border-emerald-300"
+                    : "border-zinc-600"
+                }`}
+              >
+                <span
+                  className={`size-2.5 rounded-full bg-emerald-300 ${
+                    delivery === "pickup" ? "block" : "hidden"
+                  }`}
+                />
+              </span>
             </label>
           </div>
 

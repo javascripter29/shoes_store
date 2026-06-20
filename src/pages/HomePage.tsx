@@ -33,7 +33,7 @@ export function HomePage({
   return (
     <>
       <section className="grid overflow-hidden rounded-lg border border-emerald-400/20 bg-zinc-900 md:grid-cols-[1.05fr_0.95fr]">
-        <div className="flex flex-col justify-center gap-6 p-6 sm:p-8 lg:p-10">
+        <div className="flex flex-col justify-center gap-5 p-6 sm:gap-6 sm:p-8 lg:p-10">
           <div className="w-fit space-y-2">
             <div className="rounded-md bg-emerald-400 px-3 py-1 text-sm font-black uppercase tracking-wide text-zinc-950">
               -30% до конца недели
@@ -43,7 +43,7 @@ export function HomePage({
             </div>
           </div>
           <div className="max-w-xl">
-            <h1 className="text-4xl font-black leading-tight sm:text-5xl lg:text-6xl">
+            <h1 className="text-3xl font-black leading-tight sm:text-5xl lg:text-6xl">
               Темные силуэты. Зеленая скорость.
             </h1>
             <p className="mt-4 text-base leading-7 text-zinc-300 sm:text-lg">
@@ -58,7 +58,7 @@ export function HomePage({
             Смотреть каталог
           </a>
         </div>
-        <div className="relative min-h-72 bg-zinc-800 sm:min-h-96">
+        <div className="relative min-h-56 bg-zinc-800 sm:min-h-96">
           <img
             className="absolute inset-0 h-full w-full object-cover"
             src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=1200&q=80"
@@ -68,8 +68,8 @@ export function HomePage({
         </div>
       </section>
 
-      <div className="grid gap-8 lg:grid-cols-[1fr_380px]">
-        <section id="catalog" className="space-y-5">
+      <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-10 lg:grid-cols-[minmax(0,1fr)_400px] xl:gap-12">
+        <section id="catalog" className="min-w-0 space-y-5">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-wide text-emerald-300">
@@ -86,7 +86,7 @@ export function HomePage({
             </span>
           </div>
 
-          <div className="flex gap-2 overflow-x-auto pb-1">
+          <div className="flex min-w-0 gap-2 overflow-x-auto pb-1">
             {(["Все", ...categories] as const).map((category) => (
               <button
                 className={`whitespace-nowrap rounded-md border px-3 py-2 text-sm font-semibold transition ${
@@ -103,7 +103,7 @@ export function HomePage({
             ))}
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid min-w-0 gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {filteredProducts.map((product) => (
               <ProductCard
                 addToCart={addToCart}

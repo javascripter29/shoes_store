@@ -1,5 +1,5 @@
 ﻿import { ShoppingCart, X } from "lucide-react";
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { formatPrice } from "../logic/formatPrice";
 import type { Currency, Product } from "../types/shop";
 
@@ -23,6 +23,8 @@ export function ProductDetailsModal({
     width: 0,
   });
   const [isZooming, setIsZooming] = useState(false);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const titleId = `product-details-title-${product.id}`;
   const lensSize = 100;
   const zoomScale = 2.8;
 
@@ -35,6 +37,7 @@ export function ProductDetailsModal({
 
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
+    closeButtonRef.current?.focus();
 
     return () => {
       document.body.style.overflow = "";
@@ -63,6 +66,7 @@ export function ProductDetailsModal({
 
   return (
     <div
+      aria-labelledby={titleId}
       aria-modal="true"
       className="fixed inset-0 z-[200] grid items-start overflow-y-auto overflow-x-hidden bg-zinc-950/80 backdrop-blur-sm sm:place-items-center sm:p-4"
       onClick={onClose}
@@ -114,7 +118,10 @@ export function ProductDetailsModal({
                 <p className="text-xs font-semibold uppercase tracking-wide text-emerald-300 sm:text-sm">
                   Подробности товара
                 </p>
-                <h2 className="mt-2 text-2xl font-black leading-tight sm:text-3xl lg:text-4xl">
+                <h2
+                  className="mt-2 text-2xl font-black leading-tight sm:text-3xl lg:text-4xl"
+                  id={titleId}
+                >
                   {product.name}
                 </h2>
               </div>
@@ -122,6 +129,7 @@ export function ProductDetailsModal({
                 aria-label="Закрыть описание"
                 className="grid size-10 shrink-0 place-items-center rounded-md border border-zinc-800 text-zinc-300 transition hover:border-emerald-400/60 hover:text-emerald-300 sm:size-12"
                 onClick={onClose}
+                ref={closeButtonRef}
                 type="button"
               >
                 <X size={20} />
@@ -174,7 +182,10 @@ export function ProductDetailsModal({
 
             <button
               className="mt-6 flex w-full items-center justify-center gap-2 rounded-md bg-emerald-400 px-4 py-3 font-black text-zinc-950 transition hover:bg-emerald-300"
-              onClick={() => addToCart(product)}
+              onClick={() => {
+                addToCart(product);
+                onClose();
+              }}
               type="button"
             >
               <ShoppingCart size={19} />

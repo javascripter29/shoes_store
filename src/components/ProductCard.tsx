@@ -17,7 +17,7 @@ export function ProductCard({
 
   return (
     <article
-      className="group cursor-pointer overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 transition hover:-translate-y-1 hover:border-emerald-400/60"
+      className="group min-w-0 cursor-pointer overflow-hidden rounded-lg border border-zinc-800 bg-zinc-900 transition hover:-translate-y-1 hover:border-emerald-400/60"
       onClick={() => onSelect(product)}
       onKeyDown={(event) => {
         if (event.key === "Enter" || event.key === " ") {
@@ -28,7 +28,7 @@ export function ProductCard({
       role="button"
       tabIndex={0}
     >
-      <div className="relative aspect-[4/3] overflow-hidden bg-zinc-800">
+      <div className="relative aspect-[16/11] overflow-hidden bg-zinc-800 sm:aspect-[4/3]">
         <img
           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
           src={product.image}

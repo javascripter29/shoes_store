@@ -1,6 +1,7 @@
 ﻿import { Minus, Plus, ShoppingBag, ShoppingCart, Trash2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { formatPrice } from "../logic/formatPrice";
+import { scrollToPageTop } from "../logic/scrollToPageTop";
 import type { CartItem, Currency } from "../types/shop";
 
 export function CartPanel({
@@ -16,10 +17,27 @@ export function CartPanel({
   total: number;
   updateQuantity: (id: number, change: number) => void;
 }) {
+  const navigate = useNavigate();
+
+  const goToCheckout = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.currentTarget.blur();
+    scrollToPageTop();
+    navigate("/checkout");
+
+    window.requestAnimationFrame(() => {
+      scrollToPageTop();
+    });
+    [100, 300, 600].forEach((delay) => {
+      window.setTimeout(() => {
+        scrollToPageTop();
+      }, delay);
+    });
+  };
+
   return (
     <aside
       id="cart"
-      className="h-fit rounded-lg border border-zinc-800 bg-zinc-900 p-4 lg:sticky lg:top-5"
+      className="h-fit w-full min-w-0 rounded-lg border border-zinc-800 bg-zinc-900 p-4 lg:sticky lg:top-5"
     >
       <div className="mb-4 flex items-center justify-between">
         <div>
@@ -41,7 +59,7 @@ export function CartPanel({
         <div className="space-y-3">
           {cart.map((item) => (
             <div
-              className="grid grid-cols-[64px_1fr] gap-3 rounded-lg border border-zinc-800 bg-zinc-950/60 p-3"
+              className="grid grid-cols-[64px_minmax(0,1fr)] gap-3 rounded-lg border border-zinc-800 bg-zinc-950/60 p-3"
               key={item.id}
             >
               <img
@@ -50,8 +68,8 @@ export function CartPanel({
                 alt={item.name}
               />
               <div className="min-w-0">
-                <div className="flex items-start justify-between gap-2">
-                  <div>
+                <div className="grid grid-cols-[minmax(0,1fr)_auto] gap-2">
+                  <div className="min-w-0">
                     <p className="line-clamp-2 font-semibold leading-5">
                       {item.name}
                     </p>
@@ -61,14 +79,14 @@ export function CartPanel({
                   </div>
                   <button
                     aria-label={`Удалить ${item.name}`}
-                    className="rounded-md p-1.5 text-zinc-500 transition hover:bg-zinc-800 hover:text-red-300"
+                    className="grid size-8 shrink-0 place-items-center rounded-md text-zinc-500 transition hover:bg-zinc-800 hover:text-red-300"
                     onClick={() => removeItem(item.id)}
                     type="button"
                   >
                     <Trash2 size={17} />
                   </button>
                 </div>
-                <div className="mt-3 flex items-center justify-between">
+                <div className="mt-3 grid grid-cols-[auto_minmax(0,1fr)] items-center gap-3">
                   <div className="flex items-center overflow-hidden rounded-md border border-zinc-700">
                     <button
                       aria-label="Уменьшить количество"
@@ -90,7 +108,7 @@ export function CartPanel({
                       <Plus size={15} />
                     </button>
                   </div>
-                  <p className="font-bold">
+                  <p className="min-w-0 text-right font-bold leading-5">
                     {formatPrice(item.price * item.quantity, currency)}
                   </p>
                 </div>
@@ -107,18 +125,19 @@ export function CartPanel({
             {formatPrice(total, currency)}
           </span>
         </div>
-        <Link
-          aria-disabled={cart.length === 0}
+        <button
           className={`mt-4 flex w-full items-center justify-center gap-2 rounded-md px-4 py-3 font-black transition ${
             cart.length === 0
-              ? "pointer-events-none bg-zinc-700 text-zinc-400"
+              ? "cursor-not-allowed bg-zinc-700 text-zinc-400"
               : "bg-emerald-400 text-zinc-950 hover:bg-emerald-300"
           }`}
-          to="/checkout"
+          disabled={cart.length === 0}
+          onClick={goToCheckout}
+          type="button"
         >
           <ShoppingBag size={19} />
           Оформить заказ
-        </Link>
+        </button>
       </div>
     </aside>
   );

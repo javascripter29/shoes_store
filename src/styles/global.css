@@ -27,3 +27,90 @@ a:focus-visible {
   outline: 3px solid rgba(52, 211, 153, 0.55);
   outline-offset: 2px;
 }
+
+.footer-copy {
+  font-family:
+    "Courier New", "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, monospace;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+
+.footer-muted {
+  color: rgba(215, 233, 232, 0.42);
+}
+
+.footer-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid rgba(215, 233, 232, 0.72);
+  border-radius: 2px;
+  padding: 4px 5px 3px;
+  color: #d7e9e8;
+  text-decoration: none;
+}
+
+.footer-card {
+  border: 1px solid rgba(215, 233, 232, 0.72);
+  color: #d7e9e8;
+  font-family:
+    "Courier New", "Roboto Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, monospace;
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 1.08;
+  text-transform: uppercase;
+}
+
+.footer-mark {
+  position: absolute;
+  right: 238px;
+  top: 0;
+  width: 158px;
+  height: 136px;
+  color: #d7e9e8;
+}
+
+.footer-mark-cut {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 94px;
+  height: 43px;
+  background: #d7e9e8;
+  clip-path: polygon(32% 0, 100% 0, 58% 100%, 0 100%);
+}
+
+.footer-mark-stem {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 56px;
+  height: 136px;
+  background: #d7e9e8;
+}
+
+.footer-mark-bowl {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 999px 0 0 999px;
+  background: #d7e9e8;
+}
+
+.footer-mark-bowl::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 45px;
+  height: 45px;
+  background: #000;
+}

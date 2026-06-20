@@ -1,10 +1,35 @@
-import { useMemo, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { useLayoutEffect, useMemo, useState } from "react";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { products } from "./data/products";
+import { scrollToPageTop } from "./logic/scrollToPageTop";
 import { CheckoutPage } from "./pages/CheckoutPage";
 import { HomePage } from "./pages/HomePage";
 import type { CartItem, Category, Currency, Product } from "./types/shop";
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useLayoutEffect(() => {
+    (document.activeElement as HTMLElement | null)?.blur();
+    scrollToPageTop();
+
+    const frame = window.requestAnimationFrame(() => {
+      scrollToPageTop();
+    });
+    const timeout = window.setTimeout(() => {
+      scrollToPageTop();
+    }, 100);
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      window.clearTimeout(timeout);
+    };
+  }, [pathname]);
+
+  return null;
+}
 
 function App() {
   const [cart, setCart] = useState<CartItem[]>([]);
@@ -79,6 +104,8 @@ function App() {
           totalItems={totalItems}
         />
 
+        <ScrollToTop />
+
         <Routes>
           <Route
             path="/"
@@ -101,6 +128,8 @@ function App() {
             element={<CheckoutPage cart={cart} currency={currency} total={total} />}
           />
         </Routes>
+
+        <Footer />
       </div>
     </main>
   );
