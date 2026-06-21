@@ -59,7 +59,7 @@ export function Header({
           <ShoppingBag size={22} strokeWidth={2.5} />
         </div>
         <div>
-          <p className="text-lg font-black uppercase tracking-wide">Pulse Kicks</p>
+          <p className="text-lg font-black uppercase tracking-wide">NOVA KICKS</p>
           <p className="text-xs text-zinc-400">sneaker store</p>
         </div>
       </Link>

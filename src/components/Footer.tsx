@@ -13,11 +13,11 @@ export function Footer() {
     <footer className="mt-14 border-zinc-900 bg-zinc-950 px-1 py-8 text-[#d7e9e8] sm:mt-2 sm:py-10">
       <div className="grid gap-10 md:grid-cols-[1fr_0.9fr_1.55fr] md:items-start">
         <section className="footer-copy min-h-44">
-          <p className="footer-muted">CONTACT:</p>
+          <p className="footer-muted">CONTACT ME:</p>
           <p className="mt-6 max-w-56">
             REACH OUT FOR FREELANCE COLLABORATIONS OR JUST TO SAY HI :)
           </p>
-          <a className="footer-chip mt-4" href="mailto:hello@pulsekicks.store">
+          <a className="footer-chip mt-4" href="mailto:2009.12illya@gmail.com">
             EMAIL
             <ArrowBadge />
           </a>
@@ -27,7 +27,7 @@ export function Footer() {
           <p className="footer-muted">SOCIALS:</p>
           <div className="mt-5 flex flex-col items-start gap-2">
             {socials.map((social) => (
-              <a className="footer-chip" href="/" key={social}>
+              <a className="footer-chip" href="https://t.me/illya124" target="_blank" key={social}>
                 {social}
                 <ArrowBadge />
               </a>
@@ -57,12 +57,12 @@ export function Footer() {
             </div>
             <div className="grid min-h-24 place-items-center border-b border-[#d7e9e8]/70 px-5 py-5 text-center">
               <p>
-                INTERACTIVE DEVELOPER AVAILABLE FOR FREELANCE BASED IN PARIS
-                (FR)
+                INTERACTIVE DEVELOPER AVAILABLE FOR FREELANCE BASED IN UKRAINE
+                (UA)
               </p>
             </div>
             <div className="bg-[#d7e9e8] px-4 py-3 text-right text-black">
-              AMINE ZEGMOU__©2025
+              UKRAINEC01__©2025
             </div>
           </div>
         </section>
@@ -73,8 +73,8 @@ export function Footer() {
         <p className="flex items-center gap-2 sm:ml-auto">
           DESIGN &amp; DEV BY ME
           <span className="inline-flex gap-1">
-            <span className="size-3 bg-[#d7e9e8]" />
-            <span className="size-3 bg-[#d7e9e8]" />
+            <span className="size-3 bg-[#dcfe00]" />
+            <span className="size-3 bg-[#0716f2]" />
           </span>
         </p>
       </div>

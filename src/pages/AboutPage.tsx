@@ -27,12 +27,12 @@ export function AboutPage() {
           <img
             className="absolute inset-0 h-full w-full object-contain lg:object-cover"
             src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1300&q=80"
-            alt="Команда магазина Pulse Kicks подбирает кроссовки"
+            alt="Команда магазина NOVA KICKS подбирает кроссовки"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/30 to-transparent lg:bg-gradient-to-r" />
           <div className="absolute bottom-5 left-5 rounded-md border border-emerald-400/30 bg-zinc-950/80 px-4 py-3 backdrop-blur">
             <p className="text-xs font-bold uppercase tracking-wide text-emerald-300">
-              Pulse Kicks
+              NOVA KICKS
             </p>
             <p className="mt-1 text-sm text-zinc-300">
               sneaker store since 2025
@@ -46,7 +46,7 @@ export function AboutPage() {
               Мы собираем кроссовки для города, спорта и быстрых маршрутов.
             </h1>
             <p className="mt-5 text-base leading-7 text-zinc-300 sm:text-lg">
-              Pulse Kicks вырос из простой идеи: покупка новой пары должна быть
+              NOVA KICKS вырос из простой идеи: покупка новой пары должна быть
               такой же уверенной, как первый шаг в ней. Мы держим каталог
               компактным, следим за посадкой и выбираем модели, которые
               выдерживают реальный ритм дня.
