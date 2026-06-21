@@ -29,3 +29,7 @@ Thumbs.db
 
 # Vite cache
 .vite/
+
+
+.agents/
+AGENTS.md
