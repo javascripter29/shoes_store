@@ -114,6 +114,12 @@ export function Header({
         </div>
         <Link
           className="rounded-md px-3 py-2 text-sm font-bold text-zinc-300 transition hover:bg-zinc-800 hover:text-emerald-300"
+          to="/about"
+        >
+          About
+        </Link>
+        <Link
+          className="rounded-md px-3 py-2 text-sm font-bold text-zinc-300 transition hover:bg-zinc-800 hover:text-emerald-300"
           to="/checkout"
         >
           Оформление

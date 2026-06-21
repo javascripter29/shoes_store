@@ -10,7 +10,7 @@ function ArrowBadge() {
 
 export function Footer() {
   return (
-    <footer className="mt-14 border-t border-zinc-900 bg-black px-1 py-8 text-[#d7e9e8] sm:mt-20 sm:py-10">
+    <footer className="mt-14 border-zinc-900 bg-zinc-950 px-1 py-8 text-[#d7e9e8] sm:mt-2 sm:py-10">
       <div className="grid gap-10 md:grid-cols-[1fr_0.9fr_1.55fr] md:items-start">
         <section className="footer-copy min-h-44">
           <p className="footer-muted">CONTACT:</p>

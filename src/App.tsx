@@ -6,6 +6,7 @@ import { products } from "./data/products";
 import { scrollToPageTop } from "./logic/scrollToPageTop";
 import { CheckoutPage } from "./pages/CheckoutPage";
 import { HomePage } from "./pages/HomePage";
+import { AboutPage } from "./pages/AboutPage";
 import type { CartItem, Category, Currency, Product } from "./types/shop";
 
 function ScrollToTop() {
@@ -127,6 +128,7 @@ function App() {
             path="/checkout"
             element={<CheckoutPage cart={cart} currency={currency} total={total} />}
           />
+          <Route path="/about" element={<AboutPage />} />
         </Routes>
 
         <Footer />
